@@ -106,6 +106,14 @@ echo
 echo "Calling a well known fake domain that is used to generate a known finding"
 dig GuardDutyC2ActivityB.com any
 echo
+# 7 UnauthorizedAccess:EC2/TorClient
+echo '***********************************************************************'
+echo '* Test #7 - Connection to tor network                                    *'
+echo '***********************************************************************'
+sudo service tor start
+sleep 20
+sudo service tor stop
+echo
 echo '*****************************************************************************************************'
 echo 'Expected GuardDuty Findings'
 echo
@@ -136,4 +144,8 @@ echo
 echo 'Test 6: C&C Activity'
 echo 'Expected Finding: EC2 instance ' $RED_TEAM_INSTANCE ' is querying a domain name associated with a known Command & Control server. '
 echo 'Finding Type : Backdoor:EC2/C&CActivity.B!DNS'
+echo
+echo 'Test 7: Tor Client'
+echo 'Expected Finding: EC2 instance ' $RED_TEAM_INSTANCE ' is connecting to tor network. '
+echo 'Finding Type : UnauthorizedAccess:EC2/TorClient'
 echo
